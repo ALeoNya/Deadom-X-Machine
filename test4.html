@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 200px;
+        }
+
+        .square {
+            background: skyblue;
+            width: 200px;
+            height: 200px;
+            /* transform-style: preserve-3d; */
+            animation: move 5s linear;
+            /* transform: translateZ(-100px); */
+            /* transform: translateZ(-100px); */
+
+        }
+
+        @keyframes move {
+            0% {
+                transform: scale(2.5,2.5);
+            }
+            100% {
+                transform: scale(1,1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="square"></div>
+</body>
+</html>

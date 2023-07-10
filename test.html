@@ -1,0 +1,127 @@
+//这是一个还原Deamon X Machina界面的项目
+<script src="path/to/vanilla.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .dropdown-content {
+          display: none;
+          z-index: 1;
+          position: absolute;
+          top: 45px;
+          left: 10px;
+          line-height: 5px;
+        }
+        .show-dropdown1 {
+            font-size: large;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        /* 动画 */
+        :root {
+        /* 字符数量 */
+        --steps: 12;
+        /* 动画时间 */
+        --duration: 0.3s;
+        /* 字体大小 */
+        --fontSize: 50px;
+        /* 光标大小 */
+        --cursorSize: 20px;
+        }
+
+
+
+        .hide {
+        /* color: #333;; */
+        position: relative;
+        display: inline-block;
+        font-family: 'Courier New', Courier, monospace;
+        /* font-size: var(--fontSize); */
+        line-height: 1;
+        }
+
+        /* .hide::after {
+        content: '';
+        width: var(--cursorSize);
+        height: var(--fontSize);
+        background-color: black;
+        z-index: 2;
+        position: absolute;
+        animation: blink 1s var(--duration) step-end infinite;
+        } */
+
+        .hide::before {
+        content: '';
+        width: 100%;
+        height: var(--fontSize);
+        z-index: 1;
+        position: absolute;
+        background: linear-gradient(#fff, #fff) no-repeat top right;
+        background-size: 0 100%;
+        }
+
+        .go::before {
+        animation: showText var(--duration) steps(var(--steps)) forwards;
+        }
+        .go::after {
+        animation: 
+            moveCursor var(--duration) steps(var(--steps)) forwards;
+        }
+
+
+
+        /* 背景移动动画 */
+        @keyframes showText {
+        0% {
+            background-size: 100% 100%;
+        }
+        100% {
+            background-size: 0% 100%;
+        }}
+
+      </style>
+</head>
+<body>
+    <div>
+        <!-- <span class="show-dropdown1" id="show-dropdown1" onclick="showDropdown(),showWord()" onmouseover="showWord()">装备</span> -->
+        <span class="show-dropdown1" id="show-dropdown1" onclick="showDropdown(),showWord()">装备</span>
+        <span id="hide" class="hide">换装出击时的装备</span>
+            <ul>
+            <div id="level1" class="dropdown-content">
+                <p id="text">装甲</p>
+                <p id="text1">武器</p>
+            </div>
+        </ul>  
+    </div>
+    
+    <script>
+        function showDropdown() {
+            var dropdown = document.getElementById("level1");
+            if(dropdown.style.display === 'none') {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+        function showWord() {
+            var armo = document.getElementById("show-dropdown1")
+            var word = document.getElementById("hide");
+            if(word.style.display === 'none') {
+                word.style.display = 'inline-block';
+                word.classList.add('go')
+                setTimeout(() => {
+                    text.classList.remove('go')
+                }, 2500);
+            } else {
+                word.style.display = 'none';
+            }
+        }
+    </script>      
+</body>
+</html>

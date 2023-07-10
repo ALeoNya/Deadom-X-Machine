@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JS动画实现div平移</title>
+<link href="/css/right-box.css" type="text/css" rel="Stylesheet" />
+<link href="/css/left-box.css" type="text/css" rel="Stylesheet" />
+<style>
+    body {
+        background-color: red;  /* 背景色改为红色 */
+        margin: 0px;
+        padding: 0px;
+    }
+    .father {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        background-color: blue;  
+        
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+</head>
+<body>
+<div class="father">
+    <!-- 开头视频层 -->
+    <!-- <video class="videoContent" id="videoContent" src="/video/b.mp4" onclick="onclickMovie()" onended="endMovie()" autoplay="autoplay" muted="muted" width="100%" height="100%" ></video> -->
+
+    <!-- 背景视频层4  -->
+    <div  class="backgroundVideo" id="backgroundVideo" >
+        <video src="/video/c.mp4" autoplay="autoplay" muted="muted" width="100%" height="100%"></video>
+    </div>
+
+    <!-- 镂空层5 -->
+    <div id="left-box" class="left-box">
+        <img src="/pic/XXX02.png" alt="" width="100%" height="100%">
+    </div>
+
+    <!-- 右边栏 Continue => menu 改变z-index -->
+    <div class="right-box">
+        <div class=""></div>
+        <div class="rightbox-continue" id="continue" onclick="toMenu()">
+            <span class="breath">Continue</span>
+        </div>
+
+        <div class="rightbox-menu" id="menu">
+                <div class="title-pic">
+                    <img src="/pic/title.png" alt="" width="100%" height="100%">
+                </div>
+                <div class="option" onmouseover="overblack(0)" onmouseout="outWhite(0)">CONTINUE</div>
+                <div class="option" onmouseover="overblack(1)" onmouseout="outWhite(1)">NEW GAME</div>
+                <div class="option" onmouseover="overblack(2)" onmouseout="outWhite(2)">LANGUAGE</div>
+                <div class="option" onmouseover="overblack(3)" onmouseout="outWhite(3)">OPTION</div>
+                <div class="option" onmouseover="overblack(4)" onmouseout="outWhite(4)">EXIT</div>
+        </div>
+
+    </div>
+    
+</div>
+<script>
+    // 页面打开就启动的方法
+    window.onload = function () {
+        setTimeout(moviediv,5000);
+    }
+
+    function overblack(x) {
+        var option = document.getElementsByClassName("option");
+        option[x].style.color = "black";
+        option[x].style.backgroundColor = "white";
+    }
+    function outWhite(x) {
+        var option = document.getElementsByClassName("option");
+        option[x].style.color = "white";
+        option[x].style.backgroundColor = "red";
+    }
+
+    function toMenu() {
+        var start = document.getElementById("continue");
+        var menu = document.getElementById("menu");
+        start.style.zIndex = 2;
+        menu.style.zIndex = 3;
+    }
+
+
+
+
+    //需要在开头动画结束后执行(使用定时器？)
+    function moviediv(){
+    // 先创建var后续再调用的话，性能会好一点不会那么卡顿
+
+    var box = document.getElementById("left-box");
+    var video = document.getElementById("backgroundVideo");
+
+    clearInterval(intervalID);
+        //每5ms执行一次直到clearinterval
+        var intervalID = null, begin = 0, step = 0, target = 365;  
+        intervalID = setInterval(function () {
+
+            begin += (step+5);
+
+            if (begin >= target){
+                begin = target;
+                box.style.zIndex = 2;
+                video.style.zIndex = 1;
+                clearInterval(intervalID);
+            }
+            box.style.right = begin + 'px';
+            video.style.right = begin + 'px';
+        }, 10);
+    };
+
+    // 开头动画层释放remove()
+    function endMovie() {
+        document.getElementById("videoContent").onended = function() {
+            var vid = document.getElementById("videoContent");
+            vid.style.zIndex = "0";
+            vid.remove();
+        };
+    }
+    function onclickMovie() {
+        var vid = document.getElementById("videoContent");
+        vid.style.zIndex = "0";
+        vid.remove
+    }
+
+
+</script>
+</body>
+</html>
